@@ -1,0 +1,92 @@
+{
+  "categorias": [
+    "mamífero",
+    "ave",
+    "reptil",
+    "anfibio",
+    "pez",
+    "invertebrado"
+  ],
+  "animales": [
+    {
+      "id": 1,
+      "nombre": "Luna",
+      "categoria": "mamífero",
+      "edad": 3,
+      "color": "negro",
+      "comentario": "Es juguetona y le encanta salir a pasear."
+    },
+    {
+      "id": 2,
+      "nombre": "Simón",
+      "categoria": "mamífero",
+      "edad": 5,
+      "color": "gris",
+      "comentario": "Disfruta dormir al sol y mirar por la ventana."
+    },
+    {
+      "id": 3,
+      "nombre": "Copito",
+      "categoria": "mamífero",
+      "edad": 2,
+      "color": "blanco",
+      "comentario": "Es tranquilo y le gusta explorar el jardín."
+    },
+    {
+      "id": 4,
+      "nombre": "Pepe",
+      "categoria": "ave",
+      "edad": 8,
+      "color": "verde",
+      "comentario": "Imita sonidos y reconoce a sus cuidadores."
+    },
+    {
+      "id": 5,
+      "nombre": "Manchita",
+      "categoria": "mamífero",
+      "edad": 4,
+      "color": "blanco y negro",
+      "comentario": "Pasa las tardes pastando junto al resto del grupo."
+    },
+    {
+      "id": 6,
+      "nombre": "Relámpago",
+      "categoria": "mamífero",
+      "edad": 7,
+      "color": "marrón",
+      "comentario": "Es enérgico y disfruta correr por el campo."
+    },
+    {
+      "id": 7,
+      "nombre": "Mora",
+      "categoria": "reptil",
+      "edad": 15,
+      "color": "verde oscuro",
+      "comentario": "Le gusta descansar al sol cerca de su refugio."
+    },
+    {
+      "id": 8,
+      "nombre": "Pelusa",
+      "categoria": "mamífero",
+      "edad": 1,
+      "color": "dorado",
+      "comentario": "Está activo por la noche y construye pequeños nidos."
+    },
+    {
+      "id": 9,
+      "nombre": "Pipo",
+      "categoria": "ave",
+      "edad": 2,
+      "color": "blanco",
+      "comentario": "Disfruta nadar en el estanque y buscar alimento."
+    },
+    {
+      "id": 10,
+      "nombre": "Nube",
+      "categoria": "mamífero",
+      "edad": 3,
+      "color": "blanco",
+      "comentario": "Es curiosa y suele mantenerse cerca del rebaño."
+    }
+  ]
+}
