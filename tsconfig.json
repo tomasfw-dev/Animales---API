@@ -1,5 +1,6 @@
 {
   // Visit https://aka.ms/tsconfig to read more about this file
+  "include": ["src/**/*.ts"],
   "compilerOptions": {
     // File Layout
     "rootDir": "./src",
@@ -9,7 +10,9 @@
     // See also https://aka.ms/tsconfig/module
     "module": "commonjs",
     "target": "es2015",
-    "types": [],
+    "types": ["node"],
+    "esModuleInterop": true,
+    "resolveJsonModule": true,
     // For nodejs:
     // "lib": ["esnext"],
     // "types": ["node"],
@@ -39,6 +42,6 @@
     // "isolatedModules": true,
     // "noUncheckedSideEffectImports": true,
     // "moduleDetection": "force",
-    "skipLibCheck": true,
+    "skipLibCheck": true
   }
 }
