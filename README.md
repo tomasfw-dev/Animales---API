@@ -1,6 +1,6 @@
 # API de Animales
 
-API REST de práctica hecha con **Express** y **TypeScript**. Los datos se guardan en memoria a partir de un JSON (los cambios se pierden al reiniciar el servidor).
+API REST de práctica hecha con **Express** y **TypeScript**. Los datos se guardan en memoria a partir de un JSON (los cambios se pierden al reiniciar el servidor). La validación de entrada se hace con **Zod**.
 
 ## Requisitos
 
@@ -15,7 +15,7 @@ npm run dev
 
 El servidor corre en `http://localhost:3000`.
 
-Para compilar y ejecutar la versión de producción local:
+Para compilar y ejecutar la versión compilada:
 
 ```bash
 npm run tsc
@@ -29,7 +29,7 @@ Base: `/api/animales`
 | Método | Ruta | Descripción |
 |--------|------|-------------|
 | `GET` | `/` | Lista todos los animales (sin `comentario`) |
-| `GET` | `/:id` | Obtiene un animal por ID |
+| `GET` | `/:id` | Obtiene un animal por ID (sin `comentario`) |
 | `POST` | `/` | Crea un animal |
 
 ### Crear animal (`POST /`)
@@ -42,23 +42,57 @@ Body JSON:
   "categoria": "mamífero",
   "edad": 3,
   "color": "negro",
-  "comentario": "Opcional en la práctica actual"
+  "comentario": "Opcional"
 }
 ```
 
-Categorías válidas: `mamífero`, `ave`, `reptil`, `anfibio`, `pez`, `invertebrado`.
+#### Campos y validaciones
 
-Respuestas habituales: `201` creado, `400` datos inválidos o nombre duplicado, `404` animal no encontrado.
+| Campo | Reglas |
+|-------|--------|
+| `nombre` | string obligatorio, sin espacios laterales, máximo 100 caracteres |
+| `categoria` | una de: `mamífero`, `ave`, `reptil`, `anfibio`, `pez`, `invertebrado` |
+| `edad` | number entero ≥ 0 (no se aceptan strings como `"3"`) |
+| `color` | string obligatorio, máximo 100 caracteres |
+| `comentario` | string opcional, máximo 1000 caracteres; si no se envía, se guarda como `""` |
+
+No se aceptan propiedades desconocidas en el body.
+
+### Códigos de respuesta
+
+| Código | Cuándo |
+|--------|--------|
+| `200` | Listado o búsqueda exitosa |
+| `201` | Animal creado |
+| `400` | Body inválido o ID no numérico |
+| `404` | Animal o ruta inexistente |
+| `409` | Ya existe un animal con el mismo nombre (sin distinguir mayúsculas) |
+| `500` | Error interno (sin exponer detalles al cliente) |
+
+Ejemplo de error de validación (`400`):
+
+```json
+{
+  "message": "Datos inválidos",
+  "errors": {
+    "edad": ["La edad debe ser un número"],
+    "categoria": ["La categoría no es válida"]
+  }
+}
+```
 
 ## Estructura
 
 ```
 src/
-  routes/        # Definición de rutas
-  controllers/   # Respuestas HTTP
-  services/      # Lógica y datos
-  types.d.ts     # Tipos
-  index.ts       # Entrada de la app
+  schemas/       # Esquemas Zod
+  types.ts       # Tipos derivados con z.infer
+  routes/        # Rutas
+  controllers/   # HTTP y validación de entrada
+  services/      # Lógica y datos en memoria
+  errors/        # Errores de dominio
+  middleware/    # 404 y errores centralizados
+  index.ts
 ```
 
 ## Estado del proyecto

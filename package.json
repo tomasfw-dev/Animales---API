@@ -20,12 +20,15 @@
     "typescript": "^7.0.2"
   },
   "dependencies": {
-    "express": "5.2.1"
+    "express": "5.2.1",
+    "zod": "^4.6.5"
   },
   "eslintConfig": {
     "parserOptions": {
       "project": "./tsconfig.json"
     },
-    "extends": ["./node_modules/ts-standard/eslintrc.json"]
+    "extends": [
+      "./node_modules/ts-standard/eslintrc.json"
+    ]
   }
 }
