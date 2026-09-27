@@ -25,6 +25,7 @@ export const newAnimalSchema = z
       .nonnegative('La edad no puede ser negativa'),
     color: z
       .string({ error: 'El color debe ser un texto' })
+      .trim()
       .min(1, 'El color es obligatorio')
       .max(100, 'El color no puede superar 100 caracteres'),
     comentario: z
@@ -41,7 +42,12 @@ export const animalSchema = newAnimalSchema
       .number({ error: 'El id debe ser un número' })
       .int('El id debe ser un número entero')
       .positive('El id debe ser un número positivo')
+      .safe('El id debe estar dentro del rango seguro')
   })
   .strict()
+
+export const animalIdParamSchema = z.coerce
+  .number()
+  .pipe(animalSchema.shape.id)
 
 export const animalsArraySchema = z.array(animalSchema)

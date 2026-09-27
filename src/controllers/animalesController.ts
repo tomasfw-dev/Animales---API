@@ -1,6 +1,7 @@
 import type { NextFunction, Request, Response } from 'express'
+import { z } from 'zod'
 import * as animalesServices from '../services/animalesServices'
-import { newAnimalSchema } from '../schemas/animalSchema'
+import { animalIdParamSchema, newAnimalSchema } from '../schemas/animalSchema'
 
 export const traerAnimalesController = (
   _req: Request,
@@ -21,13 +22,14 @@ export const buscarAnimalPorIdController = (
   next: NextFunction
 ): void => {
   try {
-    const id = Number(req.params.id)
-    if (Number.isNaN(id)) {
+    const resultado = animalIdParamSchema.safeParse(req.params.id)
+
+    if (!resultado.success) {
       res.status(400).json({ message: 'ID no válido' })
       return
     }
 
-    const animal = animalesServices.buscarAnimalPorId(id)
+    const animal = animalesServices.buscarAnimalPorId(resultado.data)
     if (animal === undefined) {
       res.status(404).json({ message: 'Animal no encontrado' })
       return
@@ -48,9 +50,13 @@ export const agregarAnimalController = (
     const resultado = newAnimalSchema.safeParse(req.body)
 
     if (!resultado.success) {
+      const { fieldErrors, formErrors } = z.flattenError(resultado.error)
       res.status(400).json({
         message: 'Datos inválidos',
-        errors: resultado.error.flatten().fieldErrors
+        errors: {
+          fieldErrors,
+          formErrors
+        }
       })
       return
     }
